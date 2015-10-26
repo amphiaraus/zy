@@ -25,6 +25,7 @@ public class WelcomeActivity extends Activity {
 		};
 	};
 
+	@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -32,39 +33,63 @@ public class WelcomeActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.welcome_page);
 		
-		View view = (View)findViewById(R.id.tv_main_desc);
+		findViewById(R.id.tv_main_desc).animate().scaleX(.5f).scaleY(.5f).setDuration(1500).setStartDelay(500)
+                .setInterpolator(new DecelerateInterpolator())
+                .setListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
 
-		ScaleAnimation myAnimation_Scale = new ScaleAnimation(0.5f, 1.0f, 0.5f,1.0f
-				, Animation.RELATIVE_TO_SELF, 0.5f,Animation.RELATIVE_TO_SELF, 0.5f);
-		myAnimation_Scale.setFillAfter(true);
-		myAnimation_Scale.setStartOffset(500);
-		myAnimation_Scale.setInterpolator(new AccelerateInterpolator());
-		myAnimation_Scale.setAnimationListener(new AnimationListener() {
-			
-			@Override
-			public void onAnimationStart(Animation animation) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void onAnimationEnd(Animation animation) {
-				Message msg = Message.obtain();
-				msg.what = 1;
-				handler.sendMessageDelayed(msg, 1000);
-			}
-		});
-		AnimationSet aa = new AnimationSet(true);
-		aa.addAnimation(myAnimation_Scale);
-		aa.setDuration(1500);
+                    }
 
-		view.startAnimation(aa);
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+			Message msg = Message.obtain();
+			msg.what = 1;
+			handler.sendMessageDelayed(msg, 1000);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                }).start();
+
+		// ScaleAnimation myAnimation_Scale = new ScaleAnimation(0.5f, 1.0f, 0.5f,1.0f
+		// 		, Animation.RELATIVE_TO_SELF, 0.5f,Animation.RELATIVE_TO_SELF, 0.5f);
+		// myAnimation_Scale.setFillAfter(true);
+		// myAnimation_Scale.setStartOffset(500);
+		// myAnimation_Scale.setInterpolator(new AccelerateInterpolator());
+		// myAnimation_Scale.setAnimationListener(new AnimationListener() {
+			
+		// 	@Override
+		// 	public void onAnimationStart(Animation animation) {
+		// 		// TODO Auto-generated method stub
+				
+		// 	}
+			
+		// 	@Override
+		// 	public void onAnimationRepeat(Animation animation) {
+		// 		// TODO Auto-generated method stub
+				
+		// 	}
+			
+		// 	@Override
+		// 	public void onAnimationEnd(Animation animation) {
+		// 		Message msg = Message.obtain();
+		// 		msg.what = 1;
+		// 		handler.sendMessageDelayed(msg, 1000);
+		// 	}
+		// });
+		// AnimationSet aa = new AnimationSet(true);
+		// aa.addAnimation(myAnimation_Scale);
+		// aa.setDuration(1500);
+
+		// view.startAnimation(aa);
 	}
 
 }
